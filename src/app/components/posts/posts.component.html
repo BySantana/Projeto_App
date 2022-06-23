@@ -1,0 +1,32 @@
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th>Usuário</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Corpo</th>
+            <th scope="col">Data Pergunta</th>
+            <th scope="col">Status</th>
+            <th>Comentarios</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let post of posts">
+            <th scope="row">{{post.postId}}</th>
+            <td>{{post.user.userName}}</td>
+            <td>{{post.titulo}}</td>
+            <td>{{post.corpo}}</td>
+            <td>{{post.dataPergunta}}</td>
+            <td>{{post.status}}</td>
+            <td>
+              <ul *ngFor="let com of post.comentarios">
+                <li>{{com.comentarioTexto}}</li>
+              </ul>
+            </td>
+            
+            
+          </tr>
+        </tbody>
+      </table>
+</div>
