@@ -1,7 +1,81 @@
-<div class="container">
-  <div *ngFor="let post of posts">
-    <h5><a href="#">{{post.titulo}}</a></h5>
-    <p>{{post.corpo}}</p>
-    <hr>
+<div class="container mt-3" *ngIf="!alterar">
+  <div *ngFor="let post of posts" >
+  <div class="row">
+    
+    <div class="col-sm-11">
+      <h6><a class="link" style="cursor: pointer;">{{post.titulo}}</a></h6>
+      <p>{{post.corpo}}</p>
+      
+    </div>
+    <div class="col-sm-1">
+      <a class="link" style="cursor: pointer;" (click)="mostrarDetalhes(post)">Alterar</a>
+      <a href="">Excluir</a>
+    </div>
   </div>
+  <hr>
+  </div>
+</div>
+
+<div class="container mt-3" *ngIf="alterar">
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-12">
+        <h3 class="border-bottom">Detalhe Post</h3>
+      </div>
+      
+    <div class="form-group col-sm-12">
+      <label>Título</label>
+      <input type="text" formControlName="titulo" class="form-control"
+      [ngClass]="{ 'is-invalid': f.titulo.errors && f.titulo.touched }" />
+      <div *ngIf="f.titulo.errors && f.titulo.touched" class="invalid-feedback">
+        <div *ngIf="f.titulo.errors.required">Título é obrigatório</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    
+    
+  <div class="form-group col-12 mt-2">
+    <label>Corpo do post</label>
+    <textarea type="text" formControlName="corpo" class="form-control "
+    [ngClass]="{ 'is-invalid': f.corpo.errors && f.corpo.touched }" ></textarea>
+    <div *ngIf="f.corpo.errors && f.corpo.touched" class="invalid-feedback">
+      <div *ngIf="f.corpo.errors.required">Corpo do texto é obrigatório</div>
+    </div>
+  </div>
+</div>
+  
+<div class="form-row row">
+  <div class="form-group col-sm-5 mt-2">
+    <label>Tag</label>
+    <input type="text" formControlName="tag1" class="form-control"
+    [ngClass]="{ 'is-invalid': f.tag1.errors && f.tag1.touched }"/>
+    <div *ngIf="f.tag1.errors && f.tag1.touched" class="invalid-feedback">
+      <div *ngIf="f.tag1.errors.required">Este item é obrigatório</div>
+    </div>
+  </div>
+  <div class="col-sm-1"><img [src]="image" alt=""></div>
+  <div class="form-group col-sm-5 mt-2">
+    <label>Tag</label>
+    <input type="text" formControlName="tag2" class="form-control"
+    [ngClass]="{ 'is-invalid': f.tag2.errors && f.tag2.touched }" />
+    <div *ngIf="f.tag2.errors && f.tag2.touched" class="invalid-feedback">
+      <div *ngIf="f.tag2.errors.required">Este item é obrigatório</div>
+    </div>
+  </div>
+</div>
+  
+  <div class="card-footer mt-2">
+    <div class="d-flex">
+      <button (click)="resetForm($event)" class="btn btn-outline-secondary mr-auto border">
+        Cancelar Alteração
+      </button>
+      <button class="btn btn-success" type="submit">
+        Salvar Alteração
+      </button>
+    </div>
+  </div>
+  </form>
+  
 </div>

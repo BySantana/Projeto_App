@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { UserUpdate } from 'src/app/models/identity/UserUpdate';
 import { environment } from 'src/environments/environment';
 import { Post } from 'src/app/models/Post';
+import { Comentario } from 'src/app/models/Comentario';
 //import { UserUpdate } from '@app/models/identity/UserUpdate';
 //import { AccountService } from '@app/services/account.service';
 //import { environment } from '@environments/environment';
@@ -21,6 +22,7 @@ export class PerfilComponent implements OnInit {
   public file: File;
   public imagemURL = '';
   public qtdPosts: number;
+  qtdComents: number;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -71,9 +73,9 @@ export class PerfilComponent implements OnInit {
     this.postService.getAllByUser().subscribe(
       (response: Post[]) => {this.qtdPosts = response.length}
     )
-    // this.comentarioService.getAllByUser().subscribe(
-
-    // )  
+     this.comentarioService.getAllByUser().subscribe(
+      (response: Comentario[]) => {this.qtdComents = response.length}
+     )  
   }
 
 

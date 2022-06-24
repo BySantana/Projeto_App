@@ -12,11 +12,11 @@ export class ComentarioService {
   constructor(private http: HttpClient) { }
 
   public getAllComentariosByPostId(postId: number) {
-    return this.http.get(`${this.baseUrl}post/${postId}`);
+    return this.http.get(`${this.baseUrl}comentarios/${postId}`);
   }
 
-  public getAllByUser(userId: number) {
-    return this.http.get(this.baseUrl + 'post/user/' + userId);
+  public getAllByUser() {
+    return this.http.get(this.baseUrl + 'comentarios/userId');
   }
   
   public post(model: Comentario) {

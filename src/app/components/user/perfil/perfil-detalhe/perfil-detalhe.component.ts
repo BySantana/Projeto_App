@@ -17,7 +17,7 @@ export class PerfilDetalheComponent implements OnInit {
   @Output() changeFormValue = new EventEmitter();
 
   userUpdate = {} as UserUpdate;
-  form!: FormGroup;
+  form: FormGroup;
 
   constructor( private fb: FormBuilder,
     public accountService: AccountService,

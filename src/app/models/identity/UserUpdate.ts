@@ -1,3 +1,5 @@
+import { Post } from "../Post";
+
 export class UserUpdate {
   titulo: string;
   userName: string;
@@ -10,4 +12,5 @@ export class UserUpdate {
   password: string;
   token: string;
   imagemURL: string;
+  posts: Post[];
 }

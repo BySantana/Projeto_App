@@ -1,3 +1,4 @@
+import { InteracoesComponent } from './components/interacoes/interacoes.component';
 import { PostUserComponent } from './components/posts/post-user/post-user.component';
 import { ComentariosComponent } from './components/comentarios/comentarios.component';
 
@@ -56,7 +57,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     TituloComponent,
     DashboardComponent,
     ComentariosComponent,
-    PostUserComponent
+    PostUserComponent,
+    InteracoesComponent
   ],
   imports: [
     BrowserModule,

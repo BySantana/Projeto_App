@@ -7,7 +7,8 @@ export class Post {
     titulo: string;
     corpo: string;
     imagemUrl: string;
-    tags: string[];
+    tag1: string;
+    tag2: string;
     dataPergunta: Date;
     status: boolean;
     userId: number;

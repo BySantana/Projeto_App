@@ -1,3 +1,17 @@
-<p>
-  comentarios works!
-</p>
+<div class="container mt-3">
+  <div *ngFor="let com of comentarios">
+  <div class="row">
+    
+    <div class="col-sm-11">
+      <h6><a href="#">{{com.post.titulo}}</a></h6>
+      <p>{{com.comentarioTexto}}</p>
+      
+    </div>
+    <div class="col-sm-1">
+      <a href="">Alterar</a>
+      <a href="">Excluir</a>
+    </div>
+  </div>
+  <hr>
+  </div>
+</div>
