@@ -1,3 +1,5 @@
+import { AccountService } from 'src/app/services/account.service';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router,
+              private accountService: AccountService) { }
 
   ngOnInit() {
   }
 
+  pergunta(){
+    if (this.accountService.currentUser$ == null){
+      this.router.navigateByUrl('user/login');
+    }
+    else{
+      this.router.navigateByUrl('posts/lista');
+    }
+    
+  }
 }

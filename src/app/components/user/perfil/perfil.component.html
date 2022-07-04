@@ -1,5 +1,6 @@
-<app-titulo [titulo]="'Perfil'" [iconClass]="'fa fa-address-card'"></app-titulo>
-<div class="card rounded shadow-sm">
+<div class="container">
+  <app-titulo [titulo]="'Perfil'" [iconClass]="'fa fa-address-card'"></app-titulo>
+  <div class="card rounded shadow">
 
     <div class="row p-3">
       <div class="col-lg-3 pt-1">
@@ -8,17 +9,13 @@
             <input type="file" #file (change)="onFileChange($event)" style="display: none;">
           </div>
           <div class="d-flex align-self-center pt-3">
-              <img
-              [src]="imagemURL"
-              class="rounded-circle"
-              (click)="file.click()"
-              name="aboutme" width="120" height="120"
+            <img [src]="imagemURL" class="rounded-circle" (click)="file.click()" name="aboutme" width="120" height="120"
               style="cursor: pointer;">
           </div>
           <div class="card-body">
             <div class="h4 text-center mb-3">@{{usuario.userName}}</div>
             <div class="h7 text-bold pb-1"><b>Nome:</b> {{usuario.primeiroNome + ' ' + usuario.ultimoNome}}</div>
-            <div class="h7">
+            <div class="h7"> <br>
               {{usuario.descricao}}
             </div>
           </div>
@@ -43,33 +40,30 @@
         <tabset>
           <tab class="border border-top-0 p-3">
             <ng-template tabHeading>
-              <i class="fa fa-address-card mr-2"></i><span>Perfil</span>
+              <i class="fa fa-address-card mr-2"></i><b style="color: #3494cc;">Perfil</b>
             </ng-template>
 
             <app-perfil-detalhe (changeFormValue)="setFormValue($event)"></app-perfil-detalhe>
           </tab>
-          <tab  class="border border-top-0 p-3">
+          <tab class="border border-top-0 p-3">
             <ng-template tabHeading>
-              <i class="fa fa-user mr-2"></i><span>Meus Posts</span>
+              <i class="fa fa-user mr-2"></i><b style="color: #3494cc;">Meus Posts</b>
             </ng-template>
-            <div class="form-group">
-              <h3 class="border-bottom">Posts</h3>
-            </div>
+
             <app-post-user></app-post-user>
-            
+
           </tab>
-          <tab  class="border border-top-0 p-3">
+          <tab class="border border-top-0 p-3">
             <ng-template tabHeading>
-              <i class="fa fa-share-square mr-2"></i><span>Minhas Respostas</span>
+              <i class="fa fa-share-square mr-2"></i><b style="color: #3494cc;">Minhas Respostas</b>
             </ng-template>
-            <div class="form-group">
-              <h3 class="border-bottom">Respostas</h3>
-            </div>
+
 
             <app-comentarios></app-comentarios>
           </tab>
         </tabset>
-        </div>
-</div>
+      </div>
+    </div>
 
+  </div>
 </div>

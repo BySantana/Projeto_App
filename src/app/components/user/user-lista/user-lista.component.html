@@ -1,0 +1,25 @@
+<div class="ms-5 mt-2">
+  <div class="row mb-3 ms-5">
+    <div class="col-sm-4">
+      <label for="titulo">Faça a sua pesquisa: </label>
+      <input #campoBusca class="form-control mt-1" type="search" name="titulo" placeholder="Pesquisar...">
+    </div>
+  </div>
+  <div class="row ms-auto">
+ <div *ngFor="let user of users | filtroUsuario: _filtroLista" class="col-sm-5"> 
+    <div class="card mb-3 ms-5 shadow" style="min-width: 415px; height: 150px;">
+      <div class="row g-0 ">
+        <div class="col-md-4">
+          <img width="190" src="{{imagemUrl}}{{user.imagemURL}}" class="img-fluid rounded-start rounded-circle" alt="..." style="height: 150px;">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{user.userName}}</h5>
+            <p class="card-text">{{user.descricao}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div> 

@@ -1,18 +1,39 @@
 <div class="container mt-3" *ngIf="!alterar">
-  <div *ngFor="let post of posts" >
-  <div class="row">
-    
-    <div class="col-sm-11">
-      <h6><a class="link" style="cursor: pointer;">{{post.titulo}}</a></h6>
-      <p>{{post.corpo}}</p>
-      
+  <div class="form-group row border-bottom">
+    <div class="col-sm-10">
+      <h3 class="mb-2">Posts</h3>
     </div>
-    <div class="col-sm-1">
-      <a class="link" style="cursor: pointer;" (click)="mostrarDetalhes(post)">Alterar</a>
-      <a href="">Excluir</a>
+    <div class="col-sm-2">
+      <a (click)="getAllByUser()" style="cursor: pointer;" class=" btn-lg btn-outline-primary"><svg
+          xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-clockwise"
+          viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+          <path
+            d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+        </svg>
+      </a>
     </div>
   </div>
-  <hr>
+  <div *ngFor="let post of posts">
+    <div class="row mt-3">
+
+      <div class="col-sm-11">
+        <b><a class="link" style="cursor: pointer; text-decoration: none; color: #3494cc;">{{post.titulo}}</a></b>
+        <p [innerHtml]="post.corpo"></p>
+
+      </div>
+      <div class="col-sm-1">
+        <a class="link" style="cursor: pointer; text-decoration: none; color: #3494cc; font-size: 15px"
+          (click)="mostrarDetalhes(post)">Alterar</a>
+
+        <a (click)="selecionarPostParaExcluir(post)" class="link"
+          style="cursor: pointer; text-decoration: none; color: #3494cc; font-size: 15px" data-bs-toggle="modal"
+          data-bs-target="#exampleModal">
+          Excluir
+        </a>
+      </div>
+    </div>
+    <hr>
   </div>
 </div>
 
@@ -22,60 +43,75 @@
       <div class="form-group col-12">
         <h3 class="border-bottom">Detalhe Post</h3>
       </div>
-      
-    <div class="form-group col-sm-12">
-      <label>Título</label>
-      <input type="text" formControlName="titulo" class="form-control"
-      [ngClass]="{ 'is-invalid': f.titulo.errors && f.titulo.touched }" />
-      <div *ngIf="f.titulo.errors && f.titulo.touched" class="invalid-feedback">
-        <div *ngIf="f.titulo.errors.required">Título é obrigatório</div>
+
+      <div class="form-group col-sm-12">
+        <label>Título</label>
+        <input type="text" formControlName="titulo" class="form-control"
+          [ngClass]="{ 'is-invalid': f.titulo.errors && f.titulo.touched }" />
+        <div *ngIf="f.titulo.errors && f.titulo.touched" class="invalid-feedback">
+          <div *ngIf="f.titulo.errors.required">Título é obrigatório</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+
+
+      <div class="form-group col-12 mt-2">
+        <label>Corpo do post</label>
+        <ckeditor type="text" formControlName="corpo" class="form-control "
+          [ngClass]="{ 'is-invalid': f.corpo.errors && f.corpo.touched }"></ckeditor>
+        <div *ngIf="f.corpo.errors && f.corpo.touched" class="invalid-feedback">
+          <div *ngIf="f.corpo.errors.required">Corpo do texto é obrigatório</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row row">
+      <div class="form-group col-sm-5 mt-2">
+        <label>Tag</label>
+        <input type="text" formControlName="tag1" class="form-control"
+          [ngClass]="{ 'is-invalid': f.tag1.errors && f.tag1.touched }" />
+        <div *ngIf="f.tag1.errors && f.tag1.touched" class="invalid-feedback">
+          <div *ngIf="f.tag1.errors.required">Este item é obrigatório</div>
+        </div>
+      </div>
+
+      <div class="col-sm-7"></div>
+    </div>
+
+    <div class="card-footer mt-2">
+      <div class="d-flex">
+        <button (click)="voltar()" class="btn btn-outline-secondary mr-auto border">
+          Voltar
+        </button>
+        <button class="btn btn-success" type="submit">
+          Salvar Alteração
+        </button>
+      </div>
+    </div>
+  </form>
+
+
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Excluir</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que quer excluir esta pergunta?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-danger" (click)="excluirPost()" data-bs-dismiss="modal">Excluir</button>
       </div>
     </div>
   </div>
-
-  <div class="form-row">
-    
-    
-  <div class="form-group col-12 mt-2">
-    <label>Corpo do post</label>
-    <textarea type="text" formControlName="corpo" class="form-control "
-    [ngClass]="{ 'is-invalid': f.corpo.errors && f.corpo.touched }" ></textarea>
-    <div *ngIf="f.corpo.errors && f.corpo.touched" class="invalid-feedback">
-      <div *ngIf="f.corpo.errors.required">Corpo do texto é obrigatório</div>
-    </div>
-  </div>
-</div>
-  
-<div class="form-row row">
-  <div class="form-group col-sm-5 mt-2">
-    <label>Tag</label>
-    <input type="text" formControlName="tag1" class="form-control"
-    [ngClass]="{ 'is-invalid': f.tag1.errors && f.tag1.touched }"/>
-    <div *ngIf="f.tag1.errors && f.tag1.touched" class="invalid-feedback">
-      <div *ngIf="f.tag1.errors.required">Este item é obrigatório</div>
-    </div>
-  </div>
-  <div class="col-sm-1"><img [src]="image" alt=""></div>
-  <div class="form-group col-sm-5 mt-2">
-    <label>Tag</label>
-    <input type="text" formControlName="tag2" class="form-control"
-    [ngClass]="{ 'is-invalid': f.tag2.errors && f.tag2.touched }" />
-    <div *ngIf="f.tag2.errors && f.tag2.touched" class="invalid-feedback">
-      <div *ngIf="f.tag2.errors.required">Este item é obrigatório</div>
-    </div>
-  </div>
-</div>
-  
-  <div class="card-footer mt-2">
-    <div class="d-flex">
-      <button (click)="resetForm($event)" class="btn btn-outline-secondary mr-auto border">
-        Cancelar Alteração
-      </button>
-      <button class="btn btn-success" type="submit">
-        Salvar Alteração
-      </button>
-    </div>
-  </div>
-  </form>
-  
 </div>

@@ -6,12 +6,13 @@ export class Post {
     postId: number;
     titulo: string;
     corpo: string;
-    imagemUrl: string;
+    imagemURL: string;
     tag1: string;
     tag2: string;
     dataPergunta: Date;
+    like: number;
     status: boolean;
     userId: number;
-    user: User;
+    user: UserUpdate;
     comentarios: Comentario[];
 }

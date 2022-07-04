@@ -32,6 +32,10 @@ export class AccountService {
     return this.http.get<UserUpdate>(this.baseUrl + 'getUser').pipe(take(1));
   }
 
+  getAllUsers(): Observable<UserUpdate[]>{
+    return this.http.get<UserUpdate[]>(this.baseUrl + 'getAllUsers').pipe(take(1));
+  }
+
   updateUser(model: UserUpdate): Observable<void> {
     return this.http.put<UserUpdate>(this.baseUrl + 'updateUser', model).pipe(
       take(1),

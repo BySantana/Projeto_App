@@ -1,10 +1,10 @@
-<form [formGroup]="form" (submit)="onSubmit()">
+<form [formGroup]="form" (submit)="onSubmit()" class="ms-4">
   <div class="form-row row">
-    <div class="form-group col-12">
+    <div class="form-group col-12 mt-3 mb-2">
       <h3 class="border-bottom">Detalhe Perfil</h3>
     </div>
     
-  <div class="form-group col-sm-5">
+  <div class="form-group col-sm-5 mt-2">
     <label>Primeiro Nome</label>
     <input type="text" formControlName="primeiroNome" class="form-control"
     [ngClass]="{ 'is-invalid': f.primeiroNome.errors && f.primeiroNome.touched }" />
@@ -15,7 +15,7 @@
   <div class="col-sm-1">
     
   </div>
-  <div class="form-group col-sm-5">
+  <div class="form-group col-sm-5 mt-2">
     <label>Último nome</label>
     <input type="text" formControlName="ultimoNome" class="form-control"
     [ngClass]="{ 'is-invalid': f.ultimoNome.errors && f.ultimoNome.touched }" />
@@ -45,18 +45,7 @@
       <div *ngIf="f.phoneNumber.errors.required">Telefone é obrigatório</div>
     </div>
   </div>
-  <!-- <div class="form-group col-sm">
-    <label>Função</label>
-    <select formControlName="funcao" class="form-control"
-    [ngClass]="{ 'is-invalid': f.funcao.errors && f.funcao.touched }">
-    <option value="NaoInformado">Não Informado</option>
-    <option value="Participante">Participante</option>
-    <option value="Palestrante">Palestrante</option>
-  </select>
-  <div *ngIf="f.funcao.errors && f.funcao.touched" class="invalid-feedback">
-    <div *ngIf="f.funcao.errors.required">função é obrigatório é obrigatório</div>
-  </div>
-</div> -->
+
 <div class="form-group col-11 mt-2">
   <label>Descrição</label>
   <textarea type="text" formControlName="descricao" class="form-control "

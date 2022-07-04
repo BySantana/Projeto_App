@@ -1,0 +1,61 @@
+<!-- <div *ngIf="!mostrarPosts" class="" style="">
+  <div class="row ms-5">
+    <div *ngFor="let item of tags" class=" col-sm-4 me-auto">
+      <div class="btn btn-outline-primary ms-2" (click)="getPostsByTags(item)">
+        {{item}}
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div *ngIf="!mostrarPosts">
+  <div class="row">
+    <div class="col-sm-6" *ngFor="let item of tags">
+      <div class="card shadow mb-2" style="border-radius: 5px;">
+        <div class="card-body">
+          <h5 class="card-title">{{item}}</h5>
+          <p class="card-text">Veja quantos Posts já foram feitos sobre essa TAG</p>
+          <a (click)="getPostsByTags(item)" class="btn btn-outline-primary">Visualizar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="mostrarPosts" class="border-start shadow container mb-5" style="background-color: white; border-radius: 10px;">
+  <div class="row border-bottom">
+    <div class="col-sm-10 mt-3">
+      <h2>Resultados encontrados: {{posts.length}}</h2>
+    </div>
+    <div class="col-sm-2 mt-3">
+      <button class="btn btn-secondary" (click)="mostrarPosts = false">Voltar</button>
+    </div>
+  </div>
+  <div *ngFor="let post of posts" class="border-bottom">
+
+    <div class="row mb-3 mt-3 ">
+      <div class="col-sm-1 mt-4 ms-2" style="text-align: right; font-size: 11px;">
+        {{post.comentarios.length}} Soluções
+        {{post.like}} Likes
+      </div>
+      <div class="col-sm-10">
+        <b><a class="link"
+            style="cursor: pointer; text-decoration: none; font-size: 18px;color: #3494cc;">{{post.titulo}}</a></b>
+        <p [innerHtml]="post.corpo"></p>
+        <div class="row">
+          <div class="col-sm-2">
+            <p style="background-color: #cadae4; border-radius: 8px; text-align: center;">{{post.tag1}}</p>
+          </div>
+          <!-- <div class="col-sm-2" ><p style="background-color: #cadae4; border-radius: 8px; text-align: center;">{{post.tag2}}</p></div> -->
+
+          <span class="col-sm-6 mt-2" style="font-size: 13px; "><a class="link"
+              style="text-decoration: none; cursor: pointer; color: #3494cc">@{{post.user.userName}}</a> -
+            {{post.dataPergunta}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

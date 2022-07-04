@@ -1,3 +1,61 @@
-<p>
-  post-detalhe works!
-</p>
+<div class="container mt-3 px-5 shadow mb-5">
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-12">
+        <h3 class="border-bottom">Novo Post</h3>
+      </div>
+      
+    <div class="form-group col-sm-12">
+      <label>Título</label>
+      <input type="text" formControlName="titulo" class="form-control"
+      [ngClass]="{ 'is-invalid': f.titulo.errors && f.titulo.touched }" />
+      <div *ngIf="f.titulo.errors && f.titulo.touched" class="invalid-feedback">
+        <div *ngIf="f.titulo.errors.required">Título é obrigatório</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    
+    
+  <div class="form-group col-12 mt-2">
+    <label>Corpo do post</label>
+    <!-- <textarea type="text" formControlName="corpo" class="form-control "
+    [ngClass]="{ 'is-invalid': f.corpo.errors && f.corpo.touched }" ></textarea> -->
+    <ckeditor type="text" formControlName="corpo" class="form-control "
+    [ngClass]="{ 'is-invalid': f.corpo.errors && f.corpo.touched }" ></ckeditor>
+    <div *ngIf="f.corpo.errors && f.corpo.touched" class="invalid-feedback">
+      <div *ngIf="f.corpo.errors.required">Corpo do texto é obrigatório</div>
+    </div>
+  </div>
+</div>
+  
+<div class="form-row row">
+  <div class="form-group col-sm-5 mt-2">
+    <label>Tag</label>
+    <input type="text" formControlName="tag1" class="form-control"
+    [ngClass]="{ 'is-invalid': f.tag1.errors && f.tag1.touched }"/>
+    <div *ngIf="f.tag1.errors && f.tag1.touched" class="invalid-feedback">
+      <div *ngIf="f.tag1.errors.required">A tag da pergunta é obrigatória</div>
+    </div>
+  </div>
+  <div class="col-sm-1"></div>
+</div>
+
+
+  
+  <div class="card-footer mt-2">
+    <div class="d-flex">
+      <button (click)="resetForm($event)" class="btn btn-outline-secondary mr-auto border">
+        Limpar
+      </button>
+      <button [disabled]="!form.valid" class="btn btn-primary" type="submit">
+        Criar
+      </button>
+    </div>
+  </div>
+  </form>
+  
+
+ 
+</div>

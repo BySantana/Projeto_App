@@ -19,8 +19,8 @@ export class ComentarioService {
     return this.http.get(this.baseUrl + 'comentarios/userId');
   }
   
-  public post(model: Comentario) {
-    return this.http.post(this.baseUrl, model);
+  public post(postId: number, model: Comentario) {
+    return this.http.post(this.baseUrl+`${postId}`, model);
   }
 
   public put(model: Comentario) {

@@ -1,32 +1,32 @@
-<div class="container">
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th>Usuário</th>
-            <th scope="col">Titulo</th>
-            <th scope="col">Corpo</th>
-            <th scope="col">Data Pergunta</th>
-            <th scope="col">Status</th>
-            <th>Comentarios</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let post of posts">
-            <th scope="row">{{post.postId}}</th>
-            <td>{{post.user.userName}}</td>
-            <td>{{post.titulo}}</td>
-            <td>{{post.corpo}}</td>
-            <td>{{post.dataPergunta}}</td>
-            <td>{{post.status}}</td>
-            <td>
-              <ul *ngFor="let com of post.comentarios">
-                <li>{{com.comentarioTexto}}</li>
-              </ul>
-            </td>
-            
-            
-          </tr>
-        </tbody>
-      </table>
+<div class="container" style="background-color:#cadae4">
+<app-titulo [titulo]="'Publicações'" [subtitulo]="'Pesquise, descubra e tire as suas dúvidas'" [iconClass]="'far fa-chart-bar'"></app-titulo>
+
+
+
+
+<div class="d-flex align-items-start" style="background-color: #cadae4">
+  <div class="row">
+  <div class="nav flex-column nav-pills me-3 mt-3 font-monospace position-fixed col-sm-1 ms-4" id="v-pills-tab" role="tablist" aria-orientation="vertical" >
+    <button class="nav-link active mb-1 shadow" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true" style="background-color: #3494cc; color: white;">Perguntas</button>
+    <button class="nav-link white mb-1 shadow" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false" style="background-color: #3494cc; color: white;">Usuários</button>
+    <!-- <button class="nav-link mb-1" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false" disabled style="background-color: #3494cc; color: white;"></button> -->
+    <button class="nav-link mb-1 shadow" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false" style="background-color: #3494cc; color: white;">Tags</button>
+    <button class="nav-link shadow" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" style="background-color: #3494cc; color: white;">Nova Pergunta</button>
+  </div>
+  <div class="tab-content font-monospace col-sm-10 ms-auto" id="v-pills-tabContent" >
+    <div class="tab-pane fade show active shadow align-items-sm-end container" style="width: 1108px; background-color: white; border-radius: 10px;" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
+      <app-post-lista style="background-color: white"></app-post-lista>
+    </div>
+    <div class="tab-pane fade" style="width: 1108px; border-radius: 10px;" id="v-pills-profile"  role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
+      <app-user-lista></app-user-lista>
+    </div>
+    <div class="tab-pane fade mt-3" style="width: 1108px; border-radius: 10px;" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
+      <app-tag></app-tag>
+    </div>
+    <div class="tab-pane fade" style="width: 1108px; background-color: white; border-radius: 10px;" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">
+      <app-post-detalhe></app-post-detalhe>
+    </div>
+  </div>
+</div>
+</div>
 </div>

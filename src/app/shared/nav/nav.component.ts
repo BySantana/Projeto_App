@@ -20,6 +20,7 @@ export class NavComponent implements OnInit {
   logout(): void {
     this.accountService.logout();
     this.router.navigateByUrl('/user/login');
+    location.reload();
   }
 
   showMenu(): boolean {

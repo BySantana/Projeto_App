@@ -1,3 +1,187 @@
-<p>
-  post-lista works!
-</p>
+<div class="mt-3 mb-5" style="min-width: 1000px; ">
+  <div *ngIf="!detalhePost">
+    <div class="row mb-3 ms-2">
+      <div class="col-sm-4 mt-4">
+        <label for="titulo">Faça a sua pesquisa: </label>
+        <input #campoBusca class="form-control mt-1" type="search" name="titulo" placeholder="Pesquisar..." style="border: 2px solid #3494cc">
+      </div>
+      <div class="col-sm-6"></div>
+      <div class="col-sm-2 mt-4">
+        <!-- <img class="bi bi-arrow-clockwise" src="https://cdn-icons-png.flaticon.com/512/126/126502.png" alt=""> -->
+        <a (click)="load()" style="cursor: pointer;" class="mt-5 btn-lg btn-outline-primary pb-4 "><svg
+            xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+            class="bi bi-arrow-clockwise mt-3" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+            <path
+              d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <hr>
+    <div *ngIf="detalhePost == false">
+      <div
+        *ngFor="let post of (posts | arrayFiltro: _filtroLista | paginate: { itemsPerPage: contador, currentPage: paginaAtual }) "
+        class="border-bottom">
+        <div class="row mb-3 mt-3 ">
+          <div class="col-sm-1 mt-2 ms-2" style="text-align: center; font-size: 12px;">
+            {{post.comentarios.length}} Soluções <br>
+            {{post.like}} Likes <br>
+            <a (click)="aumentarLikes(post)" style="cursor: pointer;"><img class="mt-3 me-2" src="../../../../assets/like.png" alt=""></a>
+            <a (click)="diminuirLikes(post)" style="cursor: pointer;"><img class="mt-4 me-1" src="../../../../assets/dislike.png" alt=""></a>
+          </div>
+          <div class="col-sm-10 ms-2">
+            <b><a class="link" style="cursor: pointer; text-decoration: none; font-size: 18px;color: #3494cc;"
+                (click)="entrarNoPost(post)">{{post.titulo}}</a></b>
+            <p [innerHtml]="post.corpo"></p>
+            <div class="row">
+              <div class="col-sm-2">
+                <p style="background-color: #cadae4; border-radius: 8px; text-align: center;">{{post.tag1}}</p>
+              </div>
+              <!-- <div class="col-sm-2" ><p style="background-color: #cadae4; border-radius: 8px; text-align: center;">{{post.tag2}}</p></div> -->
+
+              <span class="col-sm-6 mt-2" style="font-size: 13px; "><a class="link"
+                  style="text-decoration: none; cursor: pointer; color: #3494cc">@{{post.user.userName}}</a> -
+                {{post.dataPergunta}}
+              </span>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 mb-5 float-end">
+      <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo">
+      </pagination-controls>
+    </div>
+  </div>
+  <div class="container mt-3 pe-5" *ngIf="detalhePost">
+    <div class="row border-bottom">
+      <div class="col-sm-10 mt-2">
+        <a class="link"
+          style="text-decoration: none; color: #3494cc; cursor: pointer;"><b>@{{postSelecionado.user.userName}}</b>
+        </a>
+        <h2>{{postSelecionado.titulo}}</h2>
+        <p style="font-size: 13px;">Data da pergunta: {{postSelecionado.dataPergunta}}</p>
+      </div>
+      <div class="col-sm-1 mt-3"><button class="btn btn-outline-primary" (click)="load()">Voltar</button></div>
+      <div class="col-sm-1 mt-2">
+        <a (click)="carregarPosts()" style="cursor: pointer;" class="mt-5 btn-lg btn-outline-primary pb-4 "><svg
+            xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+            class="bi bi-arrow-clockwise mt-3" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+            <path
+              d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="mb-5">
+      <p class="mt-3" style="font-size: 22px;" [innerHTML]="postSelecionado.corpo"></p>
+      <div class="ms-auto mb-4">
+        <a class="link" style="cursor: pointer; text-decoration: none;" (click)="mostrarCampoResposta()">Responder</a>
+      </div>
+      <div *ngIf="respostaBool">
+        <form [formGroup]="formResposta" (submit)="submitResposta()">
+          <label for="comentarioTexto">Resposta</label>
+          <textarea type="text" formControlName="comentarioTexto" class="form-control"
+            [ngClass]="{ 'is-invalid': f.comentarioTexto.errors && f.comentarioTexto.touched }"></textarea>
+          <div *ngIf="f.comentarioTexto.errors && f.comentarioTexto.touched" class="invalid-feedback">
+            <div *ngIf="f.comentarioTexto.errors.required">Este campo é obrigatório</div>
+          </div>
+          <button type="submit" class="btn btn-light mt-2">
+            Enviar
+          </button>
+          <button (click)="mostrarCampoResposta()" class="btn btn-light mt-2 ms-3">
+            Cancelar
+          </button>
+        </form>
+      </div>
+      <div class="mt-3">
+        <p>{{postSelecionado.comentarios.length}} RESPOSTA(S)</p>
+
+        <div *ngIf="postSelecionado.comentarios.length > 0">
+          <div class="container border-bottom mt-4" *ngFor="let com of postSelecionado.comentarios; let i = index">
+            <a class="link"
+              style="text-decoration: none; color: #3494cc; cursor: pointer;"><b>@{{com.user.userName}}</b></a>
+            <p>{{com.comentarioTexto}}</p>
+            <a class="btn btn-outline-primary btn-sm" style="cursor: pointer; text-decoration: none;" (click)="carregarInteracoes(com)" data-bs-toggle="modal"
+              data-bs-target="#exampleModal">Iniciar Bate-Papo</a>
+            <div *ngFor="let int of com.interacoes">
+              <h2>{{int.interacaoTexto.toString()}}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="postSelecionado.comentarios.length == 0">
+
+      </div>
+    </div>
+
+    <div class="mt-5 mb-5">
+      -
+    </div>
+
+
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div *ngIf="comentarioSelecionado" class="modal fade" id="exampleModal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bate-Papo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <b><a class="link"
+            style="text-decoration: none; color: #3494cc; cursor: pointer;">@{{comentarioSelecionado.user.userName}}</a></b>
+        <p>{{comentarioSelecionado.comentarioTexto}}</p>
+        <div *ngIf="detalheInteracao" class="container mt-3">
+          <h3>Mensagens:</h3>
+
+          <div *ngFor="let int of interacaoLista">
+            <div class="ms-2 mt-3 mb-3 border-bottom">
+              <p><a class="link"
+                  style="text-decoration: none; color: #3494cc; cursor: pointer;"><b>@{{int.user.userName}}</b></a>
+                {{int.interacaoTexto}}</p>
+            </div>
+
+          </div>
+          <div>
+            <a class="link ms-5" style="cursor: pointer; text-decoration: none;" (click)="mostrarCampoParaInteragir()">Responder</a>
+          </div>
+          <div *ngIf="campoInteragir" class="mt-4 ms-5 me-5">
+            <form [formGroup]="formInteracao" (submit)="submitInteracao()">
+              <label for="comentario">Texto</label>
+              <textarea type="text" formControlName="interacaoTexto" class="form-control"
+                [ngClass]="{ 'is-invalid': f2.interacaoTexto.errors && f2.interacaoTexto.touched }"></textarea>
+              <div *ngIf="f2.interacaoTexto.errors && f2.interacaoTexto.touched" class="invalid-feedback">
+                <div *ngIf="f2.interacaoTexto.errors.required">Este campo é obrigatório</div>
+              </div>
+              <button type="submit" class="btn btn-light mt-2">
+                Enviar
+              </button>
+              <button (click)="campoInteragir = false" class="btn btn-light mt-2 ms-3">
+                Cancelar
+              </button>
+            </form>
+          </div>
+          <div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <!-- <button type="button" class="btn btn-primary"
+          (click)="carregarInteracoes(comentarioSelecionado)">Atualizar</button> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,8 @@
+import { TagComponent } from './components/tag/tag.component';
+import { UsuarioFiltroPiepe } from './components/user/user-lista/UsuarioFiltroPipe';
+import { UserListaComponent } from './components/user/user-lista/user-lista.component';
+import { ArrayFiltroPipe } from './components/posts/post-lista/ArrayFiltroPipe';
+
 import { InteracoesComponent } from './components/interacoes/interacoes.component';
 import { PostUserComponent } from './components/posts/post-user/post-user.component';
 import { ComentariosComponent } from './components/comentarios/comentarios.component';
@@ -18,17 +23,16 @@ import { PostDetalheComponent } from './components/posts/post-detalhe/post-detal
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { NgxCurrencyModule } from 'ngx-currency';
+
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { defineLocale } from 'ngx-bootstrap/chronos';
-import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+
 
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
@@ -39,6 +43,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccountService } from './services/account.service';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -58,7 +64,11 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
     DashboardComponent,
     ComentariosComponent,
     PostUserComponent,
-    InteracoesComponent
+    InteracoesComponent,
+    ArrayFiltroPipe,
+    UserListaComponent,
+    UsuarioFiltroPiepe,
+    TagComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +94,8 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
       progressBar: true,
     }),
     NgxSpinnerModule,
+    CKEditorModule,
+    NgxPaginationModule
     // NgxCurrencyModule,
   ],
   providers: [
